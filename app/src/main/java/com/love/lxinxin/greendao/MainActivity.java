@@ -1,11 +1,13 @@
 package com.love.lxinxin.greendao;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.love.lxinxin.greendao.activity.RxGreenDaoActivity;
 import com.love.lxinxin.greendao.data.bean.User;
 import com.love.lxinxin.greendao.data.dao.DaoSession;
 import com.love.lxinxin.greendao.data.dao.UserDao;
@@ -26,6 +28,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button findAll;
 
 
+    private Button rx;
+
+
     private DaoSession mDaoSession;
     private UserDao userDao;
 
@@ -42,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         delete = (Button) findViewById(R.id.delete);
         inserts = (Button) findViewById(R.id.inserts);
         findAll = (Button) findViewById(R.id.find_add);
+        rx = (Button) findViewById(R.id.rx);
 
         insert.setOnClickListener(this);
         select.setOnClickListener(this);
@@ -49,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         delete.setOnClickListener(this);
         inserts.setOnClickListener(this);
         findAll.setOnClickListener(this);
+        rx.setOnClickListener(this);
 
         mDaoSession = App.getDaoSession();
         userDao = mDaoSession.getUserDao();
@@ -74,6 +81,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.find_add:
                 findAll();
+                break;
+            case R.id.rx:
+               startActivity(new Intent(this,RxGreenDaoActivity.class));
                 break;
         }
     }
