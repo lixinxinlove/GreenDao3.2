@@ -8,8 +8,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.love.lxinxin.greendao.activity.RxGreenDaoActivity;
+import com.love.lxinxin.greendao.data.bean.Event;
 import com.love.lxinxin.greendao.data.bean.User;
 import com.love.lxinxin.greendao.data.dao.DaoSession;
+import com.love.lxinxin.greendao.data.dao.EventDao;
 import com.love.lxinxin.greendao.data.dao.UserDao;
 
 import java.util.ArrayList;
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private DaoSession mDaoSession;
     private UserDao userDao;
+
+    private EventDao eventDao;
 
 
     @Override
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mDaoSession = App.getDaoSession();
         userDao = mDaoSession.getUserDao();
+        eventDao = mDaoSession.getEventDao();
     }
 
     @Override
@@ -83,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 findAll();
                 break;
             case R.id.rx:
-               startActivity(new Intent(this,RxGreenDaoActivity.class));
+                startActivity(new Intent(this, RxGreenDaoActivity.class));
                 break;
         }
     }
@@ -111,9 +116,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void inserts() {
 
+        Event event = new Event();
+        event.setId(1);
+        event.setDesc("lllll");
+        event.setUrl("lll");
+        event.setTitle("leee");
+        eventDao.insert(event);
+
+
         List<User> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            User user = new User(i,"lee" + i, "170903434" + i, "address" + i, 1 + i, 1);
+            User user = new User(i, "lee" + i, "170903434" + i, "address" + i, 1 + i, 1);
             list.add(user);
         }
 
@@ -123,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void delete() {
         userDao.deleteByKey(1l);
 
-       // userDao.deleteAll(); //删除所有
+        // userDao.deleteAll(); //删除所有
     }
 
     private void update() {
